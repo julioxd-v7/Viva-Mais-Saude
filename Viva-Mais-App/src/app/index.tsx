@@ -1,98 +1,76 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
-
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
-  return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+import { Button } from "@/components/Button";
+import { Input } from "@/components/input";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
 export default function HomeScreen() {
-  return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
+    return (
+        <ScrollView>
+            <View style={styles.container}>
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
+                <Image
+                    source={require("../assets/img1_react.jpeg")}
+                    style={styles.illustration}
+                />
 
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
-          />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
+                <Text style={styles.title}>
+                    Entrar
+                </Text>
 
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
-  );
+                <Text style={styles.sub_title}>
+                    Faça login para continuar:
+                </Text>
+
+                <View style={styles.form}>
+
+                    <Input
+                        placeholder="E-mail"
+                        placeholderTextColor="#999999"
+                        keyboardType="email-address"
+                    />
+
+                    <Input
+                        placeholder="Senha"
+                        placeholderTextColor="#999999"
+                        secureTextEntry
+                    />
+
+                    <Button
+                        label="Entrar"
+                        onPress={() => {}}
+                    />
+
+                </View>
+
+            </View>
+        </ScrollView>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
-  },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
-  },
-  title: {
-    textAlign: 'center',
-  },
-  code: {
-    textTransform: 'uppercase',
-  },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
-  },
+    container: {
+        flex: 1,
+        backgroundColor: "#FDFDFD",
+        padding: 32,
+    },
+
+    illustration: {
+        width: "100%",
+        height: 330,
+        resizeMode: "contain",
+        marginTop: 62,
+    },
+
+    title: {
+        fontSize: 32,
+        fontWeight: "bold",
+    },
+
+    sub_title: {
+        fontSize: 16,
+    },
+
+    form: {
+        marginTop: 24,
+        gap: 12,
+    },
 });

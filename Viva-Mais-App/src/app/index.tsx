@@ -8,7 +8,7 @@ export default function HomeScreen() {
             <View style={styles.container}>
 
                 <Image
-                    source={require("../assets/img1_react.jpeg")}
+                    source={require("./assets/img1_react.jpeg")}
                     style={styles.illustration}
                 />
 
